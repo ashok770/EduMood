@@ -1,35 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>EduMood - Teacher Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-</head>
-<body>
-    <header>
-        <h1>Teacher Emotion Dashboard</h1>
-        <div style="margin-top: 10px;">
-            <a href="{{ url_for('index') }}">Submit New Feedback</a>
-            <span style="color: white;"> | </span>
-            <a href="{{ url_for('download_csv') }}" class="download-link">
-                Download All Data (CSV)
-            </a>
+{% extends "base.html" %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <!-- Header Section -->
+        <div class="card fade-in-up" style="text-align: center; margin-bottom: 2rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">📊</div>
+            <h1 style="color: var(--text-color); margin-bottom: 1rem;">Teacher Emotion Dashboard</h1>
+            <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem;">Real-time insights into your classroom's emotional landscape</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('index') }}" class="btn-primary">Submit New Feedback</a>
+                <a href="{{ url_for('download_csv') }}" class="btn-primary" style="background: var(--success-color);">Download Data (CSV)</a>
+            </div>
         </div>
-        </header>
-    
-    ```
 
-## 🚀 Step 3: Test the Feature
+        <!-- Analytics Grid -->
+        <div class="dashboard-container">
+            <!-- Mood Distribution Chart -->
+            <div class="dashboard-card fade-in-up">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📈</div>
+                    <h2 style="color: var(--text-color); margin-bottom: 1rem;">Class Mood Distribution</h2>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Current emotional state of your students</p>
+                </div>
+                <canvas id="emotionChart" style="max-height: 400px;"></canvas>
+            </div>
 
-1.  **Restart the Flask server** (`Ctrl+C` then `python app.py`).
-2.  Navigate to the **Teacher Dashboard** (`http://127.0.0.1:5000/dashboard`).
-3.  Click the **"Download All Data (CSV)"** link.
+            <!-- Trend Analysis Chart -->
+            <div class="dashboard-card fade-in-up" style="animation-delay: 0.2s;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📉</div>
+                    <h2 style="color: var(--text-color); margin-bottom: 1rem;">Confusion Index Trend</h2>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Daily average of challenging emotions over time</p>
+                </div>
+                <canvas id="trendChart" style="max-height: 400px;"></canvas>
+            </div>
+        </div>
 
-Your browser should now prompt you to save a file named `EduMood_Feedback_Data.csv` containing all the entries from your `data.json` file!
+        <!-- Recent Feedback Section -->
+        <div class="card fade-in-up" style="margin-top: 2rem;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💬</div>
+                <h2 style="color: var(--text-color); margin-bottom: 1rem;">Recent Feedback Entries</h2>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Latest student feedback and AI analysis</p>
+            </div>
+            <div id="feedback-list" style="max-height: 500px; overflow-y: auto; padding: 1rem; background: rgba(255, 255, 255, 0.5); border-radius: var(--border-radius);">
+                <!-- Feedback items will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
 
-Now that data export is done, we can move on to more advanced analytics, like visualizing **emotion trends over time**.
-
-***
-This Python Flask tutorial video will give you more context on how to manage and export data within a web application. [Python Flask Tutorial #25 How to Export Data to CSV Python Flask PostgreSQL](https://www.youtube.com/watch?v=gCrFkjVNFlg)
-http://googleusercontent.com/youtube_content/1
+    <script>
+        const rawFeedbackData = {{ feedback_data | tojson | safe }};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

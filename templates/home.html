@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron fade-in-up">
+            <h2>Welcome to EduMood 🧠</h2>
+            <p class="lead">Empowering educators with real-time emotional insights into their classroom.</p>
+            <hr style="border: none; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); margin: 2rem 0;">
+            <p>EduMood analyzes student text feedback using <strong>state-of-the-art AI</strong> to instantly classify mood, providing teachers with the data needed to adjust their teaching pace and methods.</p>
+            <div style="margin-top: 2rem;">
+                <a class="btn-primary" href="{{ url_for('index') }}">Start Giving Feedback</a>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="dashboard-container">
+            <div class="dashboard-card slide-in-left">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🤖</div>
+                    <h3 style="color: var(--text-color); margin-bottom: 1rem;">AI-Powered Analysis</h3>
+                </div>
+                <p style="color: var(--text-light); text-align: center;">Advanced Gemini AI analyzes student feedback with high accuracy, understanding nuanced emotions in educational contexts.</p>
+            </div>
+
+            <div class="dashboard-card slide-in-left" style="animation-delay: 0.2s;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                    <h3 style="color: var(--text-color); margin-bottom: 1rem;">Real-time Insights</h3>
+                </div>
+                <p style="color: var(--text-light); text-align: center;">Get instant visualizations of classroom mood trends and confusion patterns to make data-driven teaching decisions.</p>
+            </div>
+
+            <div class="dashboard-card slide-in-left" style="animation-delay: 0.4s;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                    <h3 style="color: var(--text-color); margin-bottom: 1rem;">Actionable Data</h3>
+                </div>
+                <p style="color: var(--text-light); text-align: center;">Transform emotional feedback into actionable insights that help improve teaching effectiveness and student engagement.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

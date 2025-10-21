@@ -1,12 +1,14 @@
 import os
 import json
 import csv
-from io import StringIO # Needed for creating a CSV in memory
+import time
+import datetime
+from io import StringIO 
 from dotenv import load_dotenv
 
 from google import genai
 from google.genai.errors import APIError
-from flask import Flask, request, jsonify, render_template, redirect, url_for, make_response
+from flask import Flask, request, jsonify, render_template, make_response, url_for
 
 # Load environment variables
 load_dotenv()
@@ -17,21 +19,18 @@ load_dotenv()
 app = Flask(__name__) 
 
 # Get API Key or raise error
-# Assuming you use GEMINI_API_KEY from your .env file
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY not found. Please create a .env file and add your key.")
 
 # Initialize the Gemini Client
-# It automatically picks up the API key from the environment
 try:
     client = genai.Client()
 except Exception as e:
-    # Log error if client fails to initialize (e.g., if key is invalid)
+    # We log the error but still let the app run (it will crash if an AI call is made)
     print(f"Error initializing Gemini Client: {e}")
     client = None
-
 
 # Define the structured set of emotions
 EMOTION_CATEGORIES = [
@@ -59,7 +58,7 @@ def load_data():
         try:
             return json.load(f)
         except json.JSONDecodeError:
-            # Handle case where file might be corrupted after initialization
+            # Handle case where file might be corrupted
             app.logger.warning(f"Warning: Corrupt JSON in {DATA_FILE}. Returning empty list.")
             return []
 
@@ -128,14 +127,27 @@ def classify_emotion_gemini(feedback_text):
 # --- Flask Routes ---
 
 @app.route('/')
+@app.route('/home')
+def home():
+    """Renders the welcoming home page."""
+    return render_template('home.html')
+
+@app.route('/submit_feedback')
 def index():
-    """Renders the main student feedback submission page."""
+    """Renders the student feedback submission page (formerly the root '/')."""
     return render_template('student_feedback.html')
+
+@app.route('/about')
+def about():
+    """Renders the About Me page."""
+    return render_template('about_me.html')
+
 
 @app.route('/submit_feedback', methods=['POST'])
 def submit_feedback():
     """
     Handles form submission, calls the AI, stores the data, and returns the result.
+    Uses current time as the timestamp.
     """
     feedback_text = request.form.get('feedback', '').strip()
 
@@ -150,9 +162,10 @@ def submit_feedback():
 
     # 2. Store Data
     all_data = load_data()
-    # Use current time for timestamp, not file creation time
+    
+    # Use the actual current time in seconds since epoch (Unix timestamp)
     new_entry = {
-        "timestamp": os.path.getctime(DATA_FILE), 
+        "timestamp": int(time.time()), 
         "feedback": feedback_text,
         "emotion": emotion_result['emotion'],
         "reasoning": emotion_result['reasoning']
@@ -202,6 +215,45 @@ def download_csv():
     output.headers["Content-type"] = "text/csv"
     
     return output
+
+
+@app.route('/api/time_series_data')
+def time_series_data():
+    """
+    Calculates a daily 'Confusion Index' trend for the dashboard chart.
+    Index Score: (Count of Negative Emotions) / Total Feedback
+    """
+    all_data = load_data()
+    if not all_data:
+        return jsonify([])
+
+    daily_data = {}
+
+    for entry in all_data:
+        # Convert Unix timestamp to YYYY-MM-DD format (for grouping by day)
+        date_str = datetime.datetime.fromtimestamp(entry['timestamp']).strftime('%Y-%m-%d')
+        
+        if date_str not in daily_data:
+            daily_data[date_str] = {'negative_count': 0, 'total_count': 0}
+
+        daily_data[date_str]['total_count'] += 1
+
+        # We define "Negative" as Confused, Frustrated, or Bored
+        if entry['emotion'] in ["Confused", "Frustrated/Stressed", "Bored/Drowsy"]:
+            daily_data[date_str]['negative_count'] += 1
+    
+    # Calculate the Confusion Index for each day
+    chart_data = []
+    for date_str, counts in sorted(daily_data.items()):
+        # Confusion Index (0.0 to 1.0)
+        index = counts['negative_count'] / counts['total_count']
+        
+        chart_data.append({
+            'date': date_str,
+            'confusion_index': round(index, 3) 
+        })
+
+    return jsonify(chart_data)
 
 
 # --- Run the App ---

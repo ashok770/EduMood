@@ -10,5 +10,35 @@
         "feedback": "i really dont like the way you teach",
         "emotion": "Frustrated/Stressed",
         "reasoning": "The student explicitly states 'i really dont like the way you teach', which conveys strong dissatisfaction and frustration with the teaching method."
+    },
+    {
+        "timestamp": 1761054912,
+        "feedback": "I only like the class which are really taught in good way like in intractive way",
+        "emotion": "Happy/Engaged",
+        "reasoning": "The student expresses a clear preference for interactive teaching, indicating that such methods lead to a positive and engaging learning experience for them."
+    },
+    {
+        "timestamp": 1761054942,
+        "feedback": "i dont like the way our java sir teach in the class",
+        "emotion": "Frustrated/Stressed",
+        "reasoning": "The student explicitly states 'i dont like the way our java sir teach', which indicates clear dissatisfaction and a negative emotional response to the teaching style."
+    },
+    {
+        "timestamp": 1761054991,
+        "feedback": "i did understand some concept in class today and some are not clear for me",
+        "emotion": "Confused",
+        "reasoning": "The student explicitly states that some concepts were 'not clear for me', indicating a lack of understanding or confusion about the material."
+    },
+    {
+        "timestamp": 1761055101,
+        "feedback": "I still have doubt on the topic called dynamic programming",
+        "emotion": "Confused",
+        "reasoning": "The student explicitly states 'I still have doubt on the topic', indicating a lack of understanding or clarity about the subject matter."
+    },
+    {
+        "timestamp": 1761063359,
+        "feedback": "hello my self ashok tamata 2nd year cse student",
+        "emotion": "Neutral/Calm",
+        "reasoning": "The student's feedback is a simple self-introduction with no discernible emotional tone, indicating a neutral or calm state."
     }
 ]

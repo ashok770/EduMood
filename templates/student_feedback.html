@@ -1,29 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>EduMood - Student Feedback</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <header>
-        <h1>EduMood: Student Feedback</h1>
-        <a href="{{ url_for('dashboard') }}">View Teacher Dashboard</a>
-    </header>
+{% extends "base.html" %}
 
-    <form id="feedbackForm">
-        <label for="feedbackText">How did you feel about today's class or lecture?</label>
-        <textarea id="feedbackText" name="feedback" placeholder="Enter your feedback here..."></textarea>
-        <button type="submit">Submit Feedback</button>
-    </form>
+{% block title %}Student Feedback{% endblock %}
 
-    <div id="result">
-        <h2>Analysis Result:</h2>
-        <p id="emotionDisplay">Waiting for feedback...</p>
-        <p id="reasoningDisplay"></p>
+{% block content %}
+    <div class="container">
+        <div class="card fade-in-up">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">💭</div>
+                <h1 style="color: var(--text-color); margin-bottom: 1rem;">Share Your Learning Experience</h1>
+                <p style="color: var(--text-light); font-size: 1.1rem;">Help us understand how you're feeling about today's class</p>
+            </div>
+
+            <form id="feedbackForm" class="form-group">
+                <label for="feedbackText" style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; display: block;">
+                    How did you feel about today's class or lecture?
+                </label>
+                <textarea 
+                    id="feedbackText" 
+                    name="feedback" 
+                    class="form-control"
+                    placeholder="Share your thoughts about the class... (e.g., 'I found the math problems challenging but interesting', 'The lecture was too fast for me', 'I really enjoyed the discussion today')"
+                    style="min-height: 150px; font-size: 1rem;"
+                ></textarea>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button type="submit" class="btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem;">
+                        <span id="submitText">Submit Feedback</span>
+                        <span id="loadingSpinner" class="loading" style="display: none; margin-left: 0.5rem;"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="result" class="card" style="margin-top: 2rem; display: none;">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                <h2 style="color: var(--text-color); margin-bottom: 1rem;">Analysis Result</h2>
+            </div>
+            <div id="emotionDisplay" style="text-align: center; margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: 600;"></div>
+            <div id="reasoningDisplay" style="text-align: center; color: var(--text-light); font-style: italic;"></div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="{{ url_for('dashboard') }}" class="btn-primary" style="margin-right: 1rem;">View Dashboard</a>
+                <button onclick="resetForm()" class="btn-primary" style="background: var(--text-light); border: none;">Submit Another</button>
+            </div>
+        </div>
     </div>
 
     <script>
+        function resetForm() {
+            document.getElementById('feedbackForm').reset();
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('submitText').style.display = 'inline';
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+
         document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
             e.preventDefault(); // Stop the default form submission
             
@@ -31,8 +60,14 @@
             const resultDiv = document.getElementById('result');
             const emotionDisplay = document.getElementById('emotionDisplay');
             const reasoningDisplay = document.getElementById('reasoningDisplay');
+            const submitText = document.getElementById('submitText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
             
-            emotionDisplay.innerHTML = 'Analyzing...';
+            // Show loading state
+            submitText.style.display = 'none';
+            loadingSpinner.style.display = 'inline-block';
+            resultDiv.style.display = 'block';
+            emotionDisplay.innerHTML = 'Analyzing your feedback...';
             reasoningDisplay.innerHTML = '';
             
             const formData = new FormData(e.target);
@@ -52,20 +87,25 @@
                     let emotionClass = emotion.toLowerCase().replace(/[\/ ]/g, '-');
                     
                     emotionDisplay.className = `emotion-${emotionClass}`;
-                    emotionDisplay.innerHTML = `**Detected Emotion:** ${emotion}`;
-                    reasoningDisplay.innerHTML = `**Reasoning:** ${reasoning}`;
+                    emotionDisplay.innerHTML = `Detected Emotion: ${emotion}`;
+                    reasoningDisplay.innerHTML = `Reasoning: ${reasoning}`;
                     
                     document.getElementById('feedbackText').value = ''; // Clear input
                 } else {
                     emotionDisplay.className = '';
                     emotionDisplay.innerHTML = `Error: ${data.error || 'Could not process feedback.'}`;
+                    reasoningDisplay.innerHTML = '';
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
                 emotionDisplay.className = '';
                 emotionDisplay.innerHTML = 'An internal network error occurred.';
+                reasoningDisplay.innerHTML = '';
+            } finally {
+                // Hide loading state
+                submitText.style.display = 'inline';
+                loadingSpinner.style.display = 'none';
             }
         });
     </script>
-</body>
-</html>
+{% endblock %}

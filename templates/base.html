@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMood - Empowering Classrooms</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Meta tags for better SEO and social sharing -->
+    <meta name="description" content="EduMood - AI-powered emotional analysis for educational feedback. Transform student insights into actionable teaching strategies.">
+    <meta name="keywords" content="education, AI, emotion analysis, teaching, student feedback, classroom insights">
+    <meta name="author" content="EduMood Team">
+    
+    <!-- Open Graph tags for social media -->
+    <meta property="og:title" content="EduMood - Empowering Classrooms with AI">
+    <meta property="og:description" content="AI-powered emotional analysis for educational feedback">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/32/000000/brain.png">
+</head>
+<body>
+    <!-- 🌐 Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="logo">
+                <div class="logo-icon"></div>
+                <h2>EduMood</h2>
+            </a>
+            
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="{{ url_for('home') }}">🏠 Home</a></li>
+                    <li><a href="{{ url_for('submit_feedback') }}">💭 Feedback</a></li>
+                    <li><a href="{{ url_for('dashboard') }}">📊 Dashboard</a></li>
+                    <li><a href="{{ url_for('about') }}">👨‍💻 About</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 💡 Page Content -->
+    {% block content %}{% endblock %}
+
+    <!-- 🧭 Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>© 2025 EduMood Project. Built by Second Year CSE Student.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('about') }}">About Us</a>
+                <a href="mailto:contact@edumood.com">Contact</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for enhanced interactions -->
+    <script src="{{ url_for('static', filename='js/scroll-reveal.js') }}"></script>
+</body>
+</html>

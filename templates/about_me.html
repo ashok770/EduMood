@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}About Me{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="about-section fade-in-up">
+            <h2 class="section-heading">About the Developer & The Project</h2>
+            <div class="card-body">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">👨‍💻</div>
+                    <h3 style="color: var(--text-color); margin-bottom: 1rem; font-size: 1.8rem;">Developer Details</h3>
+                </div>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">I am a <strong>Second-Year CSE Student</strong> focusing on <strong>Artificial Intelligence and Machine Learning (AIML)</strong>.</p>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">This project, EduMood, is my final semester submission, showcasing my ability to integrate modern AI services (like the <strong>Gemini API</strong>) with a full-stack web application (using Flask, HTML, CSS, and Chart.js).</p>
+
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 2rem; border-radius: var(--border-radius); margin: 2rem 0; border-left: 4px solid var(--primary-color);">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🤖</div>
+                        <h3 style="color: var(--text-color); margin-bottom: 1rem;">AIML Focus</h3>
+                    </div>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">The core of EduMood is a robust, structured classification engine built using <strong>Gemini 2.5 Flash</strong>. Instead of relying on simpler models, this approach ensures high accuracy for nuanced, context-specific emotions like 'Confused' and 'Frustrated/Stressed', which are vital in an educational setting.</p>
+                </div>
+                
+                <div style="background: rgba(118, 75, 162, 0.1); padding: 2rem; border-radius: var(--border-radius); margin: 2rem 0; border-left: 4px solid var(--secondary-color);">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚡</div>
+                        <h3 style="color: var(--text-color); margin-bottom: 1rem;">Technical Achievements</h3>
+                    </div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 1rem; padding: 1rem; background: rgba(255, 255, 255, 0.5); border-radius: 8px; border-left: 3px solid var(--success-color);">
+                            <strong style="color: var(--text-color);">Structured JSON Output:</strong> 
+                            <span style="color: var(--text-light);">Implemented clean, reliable data processing from AI responses.</span>
+                        </li>
+                        <li style="margin-bottom: 1rem; padding: 1rem; background: rgba(255, 255, 255, 0.5); border-radius: 8px; border-left: 3px solid var(--warning-color);">
+                            <strong style="color: var(--text-color);">Time-Series Analysis:</strong> 
+                            <span style="color: var(--text-light);">Developed "Confusion Index" for actionable trend visualization.</span>
+                        </li>
+                        <li style="margin-bottom: 1rem; padding: 1rem; background: rgba(255, 255, 255, 0.5); border-radius: 8px; border-left: 3px solid var(--primary-color);">
+                            <strong style="color: var(--text-color);">Full-Stack Integration:</strong> 
+                            <span style="color: var(--text-light);">Established complete data flow from web form to JSON storage and interactive graphs.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: var(--border-radius);">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🎓</div>
+                    <h3 style="color: var(--text-color); margin-bottom: 1rem;">Educational Impact</h3>
+                    <p style="color: var(--text-light); font-size: 1.1rem; line-height: 1.7;">EduMood represents the intersection of AI technology and educational psychology, providing teachers with unprecedented insights into student emotional states to create more effective and empathetic learning environments.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
