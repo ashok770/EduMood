@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EduMood - Teacher Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Teacher Emotion Dashboard</h1>
+        <div style="margin-top: 10px;">
+            <a href="{{ url_for('index') }}">Submit New Feedback</a>
+            <span style="color: white;"> | </span>
+            <a href="{{ url_for('download_csv') }}" class="download-link">
+                Download All Data (CSV)
+            </a>
+        </div>
+        </header>
+    
+    ```
+
+## 🚀 Step 3: Test the Feature
+
+1.  **Restart the Flask server** (`Ctrl+C` then `python app.py`).
+2.  Navigate to the **Teacher Dashboard** (`http://127.0.0.1:5000/dashboard`).
+3.  Click the **"Download All Data (CSV)"** link.
+
+Your browser should now prompt you to save a file named `EduMood_Feedback_Data.csv` containing all the entries from your `data.json` file!
+
+Now that data export is done, we can move on to more advanced analytics, like visualizing **emotion trends over time**.
+
+***
+This Python Flask tutorial video will give you more context on how to manage and export data within a web application. [Python Flask Tutorial #25 How to Export Data to CSV Python Flask PostgreSQL](https://www.youtube.com/watch?v=gCrFkjVNFlg)
+http://googleusercontent.com/youtube_content/1

@@ -1,0 +1,6 @@
+# requirements.txt
+Flask
+google-genai
+python-dotenv
+pandas  # For data analysis/handling
+matplotlib # For backend visualization (optional, we might use Chart.js for web instead)

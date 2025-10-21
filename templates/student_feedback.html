@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EduMood - Student Feedback</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>EduMood: Student Feedback</h1>
+        <a href="{{ url_for('dashboard') }}">View Teacher Dashboard</a>
+    </header>
+
+    <form id="feedbackForm">
+        <label for="feedbackText">How did you feel about today's class or lecture?</label>
+        <textarea id="feedbackText" name="feedback" placeholder="Enter your feedback here..."></textarea>
+        <button type="submit">Submit Feedback</button>
+    </form>
+
+    <div id="result">
+        <h2>Analysis Result:</h2>
+        <p id="emotionDisplay">Waiting for feedback...</p>
+        <p id="reasoningDisplay"></p>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Stop the default form submission
+            
+            const feedbackText = document.getElementById('feedbackText').value;
+            const resultDiv = document.getElementById('result');
+            const emotionDisplay = document.getElementById('emotionDisplay');
+            const reasoningDisplay = document.getElementById('reasoningDisplay');
+            
+            emotionDisplay.innerHTML = 'Analyzing...';
+            reasoningDisplay.innerHTML = '';
+            
+            const formData = new FormData(e.target);
+
+            try {
+                const response = await fetch('/submit_feedback', {
+                    method: 'POST',
+                    body: formData // Send as form data, Flask handles it
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const emotion = data.emotion;
+                    const reasoning = data.reasoning;
+                    
+                    let emotionClass = emotion.toLowerCase().replace(/[\/ ]/g, '-');
+                    
+                    emotionDisplay.className = `emotion-${emotionClass}`;
+                    emotionDisplay.innerHTML = `**Detected Emotion:** ${emotion}`;
+                    reasoningDisplay.innerHTML = `**Reasoning:** ${reasoning}`;
+                    
+                    document.getElementById('feedbackText').value = ''; // Clear input
+                } else {
+                    emotionDisplay.className = '';
+                    emotionDisplay.innerHTML = `Error: ${data.error || 'Could not process feedback.'}`;
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                emotionDisplay.className = '';
+                emotionDisplay.innerHTML = 'An internal network error occurred.';
+            }
+        });
+    </script>
+</body>
+</html>

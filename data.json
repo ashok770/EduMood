@@ -1,0 +1,14 @@
+[
+    {
+        "timestamp": 1761052586.3772078,
+        "feedback": "I have really enjoyed today classes",
+        "emotion": "Happy/Engaged",
+        "reasoning": "The student explicitly states they 'really enjoyed' the classes, indicating a positive and engaged experience."
+    },
+    {
+        "timestamp": 1761052586.3772078,
+        "feedback": "i really dont like the way you teach",
+        "emotion": "Frustrated/Stressed",
+        "reasoning": "The student explicitly states 'i really dont like the way you teach', which conveys strong dissatisfaction and frustration with the teaching method."
+    }
+]
