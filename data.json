@@ -40,5 +40,35 @@
         "feedback": "hello my self ashok tamata 2nd year cse student",
         "emotion": "Neutral/Calm",
         "reasoning": "The student's feedback is a simple self-introduction with no discernible emotional tone, indicating a neutral or calm state."
+    },
+    {
+        "timestamp": 1761068192,
+        "feedback": "I m struggling in class",
+        "emotion": "Frustrated/Stressed",
+        "reasoning": "The phrase 'I'm struggling in class' clearly indicates difficulty and a negative experience, aligning with frustration or stress."
+    },
+    {
+        "timestamp": 1762712258,
+        "feedback": "what is this i dont like these type of classes",
+        "emotion": "Confused",
+        "reasoning": "The student explicitly states 'what is this', indicating a fundamental lack of understanding or confusion about the class content or type, followed by a general dislike."
+    },
+    {
+        "timestamp": 1762768402,
+        "feedback": "i dont understand the AIML concept and algorithm",
+        "emotion": "Confused",
+        "reasoning": "The student explicitly states 'i dont understand', which is a direct expression of confusion regarding the concept and algorithm."
+    },
+    {
+        "timestamp": 1762776298,
+        "feedback": "i did not like studying in home",
+        "emotion": "Frustrated/Stressed",
+        "reasoning": "The student explicitly states 'did not like studying in home,' indicating a negative and potentially frustrating experience with remote learning."
+    },
+    {
+        "timestamp": 1764615479,
+        "feedback": "i found today my mernStack first class very interesting",
+        "emotion": "Happy/Engaged",
+        "reasoning": "The student explicitly stated they found the class 'very interesting', which strongly indicates positive engagement and enjoyment."
     }
 ]

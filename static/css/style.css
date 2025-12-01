@@ -6,14 +6,14 @@
 }
 
 :root {
-    --primary-color: #2dd4bf;
-    --secondary-color: #f97316;
+    --primary-color: #2d57d4;
+    --secondary-color: #113ba5;
     --accent-color: #06b6d4;
     --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --danger-color: #ef4444;
-    --dark-color: #1f2937;
-    --light-color: #f8fafc;
+    --warning-color: #3e0bf5;
+    --danger-color: #9444ef;
+    --dark-color: #230956;
+    --light-color: #05284b;
     --text-color: #1f2937;
     --text-light: #6b7280;
     --shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -169,7 +169,7 @@ body {
 }
 
 .mobile-menu-toggle:hover {
-    background: rgba(102, 126, 234, 0.1);
+    background: rgba(64, 96, 236, 0.1);
 }
 
 .mobile-menu-toggle span {

@@ -1,6 +1,4 @@
-# requirements.txt
 Flask
-google-genai
+google-generativeai
 python-dotenv
-pandas  # For data analysis/handling
-matplotlib # For backend visualization (optional, we might use Chart.js for web instead)
+gunicorn
